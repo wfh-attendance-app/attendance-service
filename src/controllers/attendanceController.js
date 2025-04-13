@@ -42,11 +42,10 @@ exports.clockIn = async (req, res) => {
     try {
         // Retrieve user_id from JWT payload
         const user_id = req.user.id;
-        const photo_url = req.file?.cloudStoragePublicUrl; // Use the public URL from uploadToGCS
+        const photo_url = req.file?.path;
 
-        // Validate photo (if required)
         if (!photo_url) {
-            return res.status(400).json({ error: 'Photo URL is required for clock-in' });
+            return res.status(400).json({ error: 'Photo is required' });
         }
 
         // Check if the user has already clocked in and not clocked out
